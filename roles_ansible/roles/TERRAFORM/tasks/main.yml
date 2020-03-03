@@ -3,8 +3,8 @@
 - name:
   yum:
     name: unzip
-- name: Download and unarchive terraform_0.12.21
+- name: Download and unarchive terraform_0.11.13
   unarchive:
-    src: https://releases.hashicorp.com/terraform/0.12.21/terraform_0.12.21_linux_amd64.zip
+    src: https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
     dest: /usr/bin
     remote_src: yes

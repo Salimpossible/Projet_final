@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  become: yes
+  roles: 
+   #- GIT
+   #- JAVA8
+   #- MAVEN
+   #- DOCKER
+   #- JENKINS
+   #- AZURECLI
+   #- ANSIBLE
+   - TERRAFORM
