@@ -1,0 +1,28 @@
+---
+# tasks file for MAVEN
+- name: download maven 3
+  get_url:
+   url: https://www-us.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+   dest: /opt/
+- name: dezipper et desarchiver le fichier dl
+  unarchive:
+   src: /opt/apache-maven-3.6.3-bin.tar.gz
+   dest: /opt/
+   remote_src: yes
+- name: suppression targz 
+  file:
+   path: /opt/apache-maven-3.6.3-bin.tar.gz
+   state: absent
+- name: creation fichier /etc/profile.d/mvn.sh
+  file:
+   path: /etc/profile.d/mvn.sh
+   state: touch
+- name: edit mvn.sh
+  blockinfile:
+   path: /etc/profile.d/mvn.sh
+   block:
+    "export MAVEN_HOME=/opt/apache-maven-3.6.3
+ 
+    export PATH=$PATH:$MAVEN_HOME/bin"
+
+

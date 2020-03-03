@@ -1,0 +1,8 @@
+---
+- hosts: noeud
+  become: yes
+  roles: 
+   - GIT
+   - JAVA8
+   - MAVEN
+   - DOCKER
