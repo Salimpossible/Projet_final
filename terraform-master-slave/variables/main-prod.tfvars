@@ -1,4 +1,4 @@
-name = "Formation"
+name = "PROD-ENV"
 location = "westeurope"
 owner = "slm"
 version = "1.44.0"
@@ -6,7 +6,7 @@ version = "1.44.0"
 name_vnet = "Vnet"
 adress_space = [ "10.0.0.0/16" ]
 
-name_subnet = "subnet1"
+name_subnet = "SubnetTestMS"
 
 adress_prefix = "10.0.2.0/24"
 nameNsg = "testNsg"
