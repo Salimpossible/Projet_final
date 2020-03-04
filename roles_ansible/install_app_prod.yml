@@ -1,0 +1,5 @@
+---
+- hosts: app-prod
+  become: yes
+  roles: 
+   - JAVA12

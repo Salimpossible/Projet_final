@@ -1,0 +1,5 @@
+---
+- hosts: app-test
+  become: yes
+  roles: 
+   - JAVA12
