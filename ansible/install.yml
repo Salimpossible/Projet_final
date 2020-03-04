@@ -8,8 +8,8 @@
       destination: $HOME/.ssh/config
 - host: proxy
   become: yes
-    -roles:
-       - NGINX
+  roles:
+    - NGINX
 - host: master
   become: yes
   roles: 
