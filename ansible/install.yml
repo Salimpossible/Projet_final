@@ -1,0 +1,26 @@
+---
+- host: localhost
+  become: yes
+  tasks:
+  - name: créer le fichier config dans le dossier .ssh
+    template:
+      src: sshconfig.j2
+      destination: $HOME/.ssh/config
+- host: proxy
+  become: yes
+    -roles:
+       - NGINX
+- host: master
+  become: yes
+  roles: 
+    - GIT
+    - JAVA8
+    - JENKINS
+
+- host: slave
+  become: yes
+  roles:
+    - GIT
+    - JAVA8
+    - MAVEN
+    - DOCKER

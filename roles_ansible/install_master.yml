@@ -1,7 +1,0 @@
----
-- hosts: master
-  become: yes
-  roles: 
-   - GIT
-   - JAVA8
-   - JENKINS

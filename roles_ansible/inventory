@@ -1,3 +1,0 @@
-master ansible_port=2223 ansible_host=192.168.1.74
-noeud ansible_port=2223 ansible_host=192.168.1.74
-

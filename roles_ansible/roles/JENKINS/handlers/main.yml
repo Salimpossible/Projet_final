@@ -1,7 +1,0 @@
----
-# handlers file for JENKINS
-- name: restart web services
-  service:
-   name: jenkins
-   state: restarted
-  listen: "restart jenkins"
