@@ -1,0 +1,24 @@
+---
+# tasks file for JENKINS
+- name: creation /usr/lib/jenkins
+  file:
+   path: /usr/lib/jenkins
+   state: directory
+- name: download jenkins.war
+  get_url: 
+   url: http://mirrors.jenkins.io/war-stable/latest/jenkins.war
+   dest: /usr/lib/jenkins
+- name: creation /data/
+  file:
+   path: /data/
+   state: directory
+- name: creation jenkins.service
+  template:
+   src: jenkins.service.j2
+   dest: /etc/systemd/system/jenkins.service
+- name: systemctl start jenkins
+  systemd:
+   state: restarted
+   name: jenkins
+   enabled: yes
+

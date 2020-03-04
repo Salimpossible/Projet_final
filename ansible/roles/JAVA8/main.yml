@@ -1,0 +1,5 @@
+---
+# tasks file for JAVA8
+- name: Java8 install
+  yum:
+   name: java-1.8.0-openjdk-devel

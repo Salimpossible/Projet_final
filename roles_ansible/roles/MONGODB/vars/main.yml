@@ -1,0 +1,11 @@
+---
+# vars file for MONGODB
+version : "4.2"
+group_db : mongodb
+username : saally
+pass : saally
+user_login_mongodb : saally
+password_login_mongodb : saally
+port :
+roles : readWriteAnyDatabase 
+nameDB : mabase

@@ -1,0 +1,11 @@
+Host proxy
+    HostName proxypic.francecentral.cloudapp.azure.com
+    User stage
+Host master
+    HostName 10.0.1.70
+    User stage
+    ProxyJump proxy
+Host slave
+    HostName 10.0.1.80
+    User stage
+    ProxyJump proxy

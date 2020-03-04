@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+  become: yes
+  roles:
+    - SSHCONFIG
+    - TERRAFORM
+    - GIT
+
+- hosts: proxy
+  become: yes
+  roles:
+    - NGINX
+
+- hosts: master
+  become: yes
+  roles: 
+    - GIT
+    - JAVA8
+    - JENKINS
+
+- hosts: slave
+  become: yes
+  roles:
+    - GIT
+    - JAVA8
+    - MAVEN
+    - DOCKER

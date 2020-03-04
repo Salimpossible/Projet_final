@@ -1,0 +1,46 @@
+---
+# tasks file for MONGODB
+- name: create file mongodb
+  file:
+    path: /etc/yum.repos.d/mongodb-org-{{ version }}.repo
+    state: touch
+
+- name: file conf
+  blockinfile:
+     path: /etc/yum.repos.d/mongodb-org-{{ version }}.repo
+     block: '[mongodb-org-4.2]
+
+     name=MongoDB Repository
+
+     baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.2/x86_64/
+
+     gpgcheck=1
+
+     enabled=1
+
+     gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc'
+
+- name: install mongodb package
+  yum:
+   name: mongodb-org
+   state: present
+
+- name: change permission directory /var/lib/mongo
+  file:
+    path: /var/lib/mongo
+    owner: "{{ user_login_mongodb }}"
+
+- name:  change permission directory /var/log/mongodb
+  file:
+     path: /var/log/mongodb
+     owner: "{{ user_login_mongodb }}"
+
+- name: daemon reload 
+  systemd:
+    daemon-reload: yes
+
+- name: start and enable mongodb
+  systemd:
+    name: mongodb
+    state: started
+    enabled: true  
