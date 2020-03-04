@@ -1,22 +1,24 @@
 ---
-- host: localhost
+- hosts: localhost
   become: yes
   roles:
     - SSHCONFIG
     - TERRAFORM
     - GIT
-- host: proxy
+
+- hosts: proxy
   become: yes
   roles:
     - NGINX
-- host: master
+
+- hosts: master
   become: yes
   roles: 
     - GIT
     - JAVA8
     - JENKINS
 
-- host: slave
+- hosts: slave
   become: yes
   roles:
     - GIT
