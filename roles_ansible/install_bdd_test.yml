@@ -1,5 +1,0 @@
----
-- hosts: vmDB
-  become: yes
-  roles: 
-   - MONGODB

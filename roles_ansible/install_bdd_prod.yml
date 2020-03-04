@@ -1,5 +1,0 @@
----
-- hosts: bdd-prod
-  become: yes
-  roles: 
-   - MONGODB

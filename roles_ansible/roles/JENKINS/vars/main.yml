@@ -1,4 +1,0 @@
----
-# vars file for JENKINS
-passwd: $1$ansible$OOJhWjoB3urYGPnb6aieC/
-jenkins_port: 8081

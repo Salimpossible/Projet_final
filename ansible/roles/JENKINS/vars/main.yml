@@ -1,0 +1,3 @@
+---
+# vars file for JENKINS
+jenkins_port: 8080

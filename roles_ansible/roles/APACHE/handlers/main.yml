@@ -1,7 +1,0 @@
----
-# handlers file for APACHE
-- name: restart web services
-  service:
-   name: httpd
-   state: restarted
-  listen: "restart httpd"
