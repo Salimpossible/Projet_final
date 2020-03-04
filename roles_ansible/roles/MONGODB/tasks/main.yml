@@ -25,15 +25,15 @@
    name: mongodb-org
    state: present
 
-- name: change permission directory /var/lib/mongo
-  file:
-    path: /var/lib/mongo
-    owner: "{{ user_login_mongodb }}"
+#- name: change permission directory /var/lib/mongo
+#  file:
+#    path: /var/lib/mongo
+#    owner: "{{ user_login_mongodb }}"
 
-- name:  change permission directory /var/log/mongodb
-  file:
-     path: /var/log/mongodb
-     owner: "{{ user_login_mongodb }}"
+#- name:  change permission directory /var/log/mongodb
+#  file:
+#    path: /var/log/mongodb
+#    owner: "{{ user_login_mongodb }}"
 
 - name: daemon reload 
   systemd:
