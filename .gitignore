@@ -1,7 +1,7 @@
 *backend*
 **/credentials
-
-
+*.vagrant
+/data
 # Local .terraform directories
 **/.terraform/*
 
