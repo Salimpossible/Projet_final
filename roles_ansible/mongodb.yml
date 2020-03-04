@@ -3,6 +3,3 @@
   become:  yes
   roles:
     - MONGODB
-    - PYTHON
-    - ANSIBLE
-    - pymongo 
