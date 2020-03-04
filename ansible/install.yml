@@ -1,14 +1,9 @@
 ---
 - host: localhost
   become: yes
-  tasks:
-  - name: créer le fichier config dans le dossier .ssh
-    template:
-      src: sshconfig.j2
-      destination: $HOME/.ssh/config
   roles:
+    - SSHCONFIG
     - TERRAFORM
-    - ANSIBLE
     - GIT
 - host: proxy
   become: yes
