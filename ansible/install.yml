@@ -6,6 +6,10 @@
     template:
       src: sshconfig.j2
       destination: $HOME/.ssh/config
+  roles:
+    - TERRAFORM
+    - ANSIBLE
+    - GIT
 - host: proxy
   become: yes
   roles:
