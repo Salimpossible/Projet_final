@@ -1,9 +1,24 @@
 def terra_file_test = 
 
 node('slave') {
+    stage('CloningGit'){
+          
+        git url: 'https://github.com/aaugrain/Restful-Webservice.git',
+            branch: 'master'
+    }
+    
+    stage('Build_with_Maven'){
+          
+        sh 'mvn clean package'
+        
+    }
+     stage('Publish test results') {
+        junit 'target/surefire-reports/*.xml'
+    }
+
     stage('Binding azure credential to variable') {
         withCredentials([file(credentialsId: '6b72eccc-25ec-4538-bb0b-3b92290b9637', variable: 'secret')])   
-}
+
     }
     stage('retrieving code from git') {
         git 'https://github.com/Salimpossible/Projet_final.git'
@@ -15,6 +30,7 @@ node('slave') {
         docker run -it -v $(pwd):/workspace -w /workspace hashicorp/terraform:light apply -var-file=$secret -var-file="variables/main.tfvars"
         '''
     }
+}
 
     // stage('Creating the test environment') {
     //     sh '''
