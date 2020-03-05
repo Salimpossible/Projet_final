@@ -5,7 +5,7 @@
     path: /etc/yum.repos.d/mongodb-org-{{ version }}.repo
     state: touch
 
-- name: file conf
+- name: write file conf
   blockinfile:
      path: /etc/yum.repos.d/mongodb-org-{{ version }}.repo
      block: '[mongodb-org-4.2]
@@ -20,10 +20,13 @@
 
      gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc'
 
-- name: install mongodb package
+- name: install mongodb 
   yum:
    name: mongodb-org
    state: present
+  notify:
+  - reload daemon
+  - start  mongo
 
 - name: change permission directory /var/lib/mongo
   file:
@@ -34,13 +37,22 @@
   file:
      path: /var/log/mongodb
      owner: "{{ user_login_mongodb }}"
+- name: create user admin
+  mongodb_user:
+    login_port: "27017"
+    database: admin
+    name: admin
+    password: admin
+    state: present
+    roles: "root"
 
-- name: daemon reload 
-  systemd:
-    daemon-reload: yes
-
-- name: start and enable mongodb
-  systemd:
-    name: mongodb
-    state: started
-    enabled: true  
+- name: create user
+  mongodb_user:
+    login_user: admin
+    login_password: admin
+    login_database: admin
+    database: users
+    name: user1
+    password: user1
+    state: present
+    roles: readWrite
