@@ -24,7 +24,7 @@
   yum:
    name: mongodb-org
    state: present
-
+   
 - name: change permission directory /var/lib/mongo
   file:
     path: /var/lib/mongo
