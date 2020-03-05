@@ -168,7 +168,7 @@ resource "azurerm_virtual_machine" "serverTest"{
 
     ssh_keys{
        path =  "/home/stage/.ssh/authorized_keys"
-       key_data = file("/home/stage/.ssh/authorized_keys")
+       key_data = file("/home/stage/.ssh/id_rsa.pub")
     }
   }
 }
@@ -201,7 +201,7 @@ resource "azurerm_virtual_machine" "vmDB"{
 
     ssh_keys{
        path =  "/home/stage/.ssh/authorized_keys"
-       key_data = file("/home/stage/.ssh/authorized_keys")
+       key_data = file("/home/stage/.ssh/id_rsa.pub")
     }
   }
 }
