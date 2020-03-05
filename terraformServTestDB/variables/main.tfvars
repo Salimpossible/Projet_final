@@ -4,7 +4,7 @@ vmSize = "Standard_B1s"
 # owner = "lynda"
 # address_space= [ "10.0.0.0/16" ]
 # name_vnet= "vnet_pic"
-# version = "1.44.0"
+
 adress_prefix = "10.0.1.0/24"
 nameNIC1 = "myNIC1"
 nameNIC2 = "myNIC2"
