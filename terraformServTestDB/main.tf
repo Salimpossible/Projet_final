@@ -227,8 +227,7 @@ resource "azurerm_virtual_machine" "vmDB"{
 
     ssh_keys{
        path =  "/home/stage/.ssh/authorized_keys"
-       key_data = file("/home/vagrant/.ssh/id_rsa.pub")
-      #  key_data = file("/home/stage/.ssh/authorized_keys")
+       key_data = file("/home/stage/.ssh/authorized_keys")
     }
   }
 }
