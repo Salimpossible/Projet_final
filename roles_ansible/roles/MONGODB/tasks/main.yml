@@ -39,20 +39,20 @@
      owner: "{{ user_login_mongodb }}"
 - name: create user admin
   mongodb_user:
-    login_port: "27017"
-    database: admin
-    name: admin
-    password: admin
+    login_port: "32236"
+    database: "admin"
+    name: "root"
+    password: "w32jjYdMZr"
     state: present
-    roles: "root"
+    roles: "userAdminAnyDatabase"
 
 - name: create user
   mongodb_user:
-    login_user: admin
-    login_password: admin
-    login_database: admin
-    database: users
-    name: user1
-    password: user1
+    login_user: "root"
+    login_password: "w32jjYdMZr"
+    login_database: "admin"
+    database: "users"
+    name: "user1"
+    password: "user1"
     state: present
     roles: readWrite
