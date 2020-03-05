@@ -97,10 +97,7 @@ resource "azurerm_virtual_machine" "master_jenkins" {
             path     = "/home/${var.user}/.ssh/authorized_keys"
             key_data = file("/home/vagrant/.ssh/id_rsa.pub")
         }
-        ssh_keys {
-            path     = "/home/${var.user}/.ssh/id_rsa"
-            key_data = file("/home/vagrant/.ssh/id_rsa")
-        }
+    
     }
 
 }

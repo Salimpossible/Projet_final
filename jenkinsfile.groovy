@@ -1,26 +1,30 @@
 def terra_file_test = 
-def secrets = {}
 
 node('slave') {
+    stage('Binding azure credential to variable') {
+        withCredentials([file(credentialsId: '6b72eccc-25ec-4538-bb0b-3b92290b9637', variable: 'secret')])   
+}
+    }
     stage('retrieving code from git') {
         git 'https://github.com/Salimpossible/Projet_final.git'
     }
-    stage('Launching a terraform container') {
+    stage('Creating the test environment via a terraform container') {
         sh ''' 
         cd ${terra_file_test}
-        docker run -it -v $(pwd):/workpace -w /workpace hashicorp/terraform:light plan
+        withCredentials
+        docker run -it -v $(pwd):/workspace -w /workspace hashicorp/terraform:light apply -var-file=$secret -var-file="variables/main.tfvars"
         '''
     }
 
-    stage('Creating the test environment') {
-        sh '''
-        cd ${terra_file_test} 
-        terraform init 
-        terraform apply -var-file=${secrets}
-        '''
-    }
-    stage('Provisionning of the Mongo-DB client') {
-        sh docker run -it -v $(pwd):/workpace -w /workpace ansible/ansible:centos7  ansible-playbook 
-    }
-}
+    // stage('Creating the test environment') {
+    //     sh '''
+    //     cd ${terra_file_test} 
+    //     terraform init 
+    //     terraform apply -var-file=${secrets}
+    //     '''
+    // }
+//     stage('Provisionning of the Mongo-DB client') {
+//         sh docker run -it -v $(pwd):/workspace -w /workpace ansible/ansible:centos7  ansible-playbook 
+//     }
+// }
 
