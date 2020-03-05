@@ -25,7 +25,19 @@ Installée une une ressource group dans un Vnet,elle comprend:
 •	GitHub : Dépôt distant (https://github.com/Salimpossible/Projet_final.git)
 •	DockerHub : Contient les images docker (aaugrain@======)
 •	Maven : Build, package
-•	Ansible : installation des outils
+•	Ansible : les rôles ansible pour provisionner la machine cliente et la BDD MongoDB
+
+Description du code pour la livraison de pile complète : contenu dans un fichier Jenkinsfile qui contient un pipeline :
+•	Récupération du code terraform
+•	Exécution du code terraform
+•	Récupération du code ansible
+•	Provisioning des serveurs et BDD
+•	Récupération du code de l’application
+•	Lancement des tests maven
+•	Livraison de l’image docker sur dockerhub
+Si la branche est develop, le déploiement sera dans l’environnement Test.
+Si la branche est master, le déploiement sera dans l’environnement Prod
+
      
 Auteurs:
      - Salim --> @salimpossible
