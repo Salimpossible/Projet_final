@@ -1,3 +1,3 @@
-FROM centos7
+FROM centos:centos7
 RUN yum -y install git && yum -y install unzip
 RUN yum -y install ansible
