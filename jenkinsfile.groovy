@@ -66,3 +66,32 @@ node('slave') {
 //     }
 // }
 
+node('slave'){
+    stage('création infra et build de appli'){
+        parallel terra:{
+            docker.image('aaugrain/terra-git:latest').inside() {
+                sh 'rm -rf *'
+                git 'https://github.com/Salimpossible/Projet_final.git'
+                sh 'mv terraformServTestDB/* .'
+                sh 'ls'
+                withCredentials([file(credentialsId: '45ea5915-31ad-4764-b8e9-0487396d9d1d', variable: 'secret')]) {
+                    sh 'terraform init'
+                    sh 'terraform -v'
+                    sh 'terraform plan -var-file=$secret -var-file=variables/main.tfvars'
+                    sh 'terraform apply -var-file=$secret -var-file=variables/main.tfvars'
+                }
+            
+            },
+            building:{
+                git 'https://github.com/aaugrain/Restful-Webservice.git'
+                sh "mvn clean package"
+                sh 'pwd'
+            }
+        }
+        
+    }
+    stage('provisioning of the mongodb host'){
+        docker.image().inside() {
+            sh "ansible-playbook "
+        }
+    }
