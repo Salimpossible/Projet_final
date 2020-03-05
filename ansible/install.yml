@@ -22,6 +22,6 @@
   become: yes
   roles:
     - GIT
-    - JAVA8
+    - JAVA12
     - MAVEN
     - DOCKER
