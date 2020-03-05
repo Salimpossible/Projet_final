@@ -1,20 +1,3 @@
-# Link to existant resource group ================================================================================
-# data "azurerm_resource_group" "rgpil" {
-#   name = "projetfinal"
-# }
-# # Link to existant virtual network ================================================================================
-# data "azurerm_virtual_network" "vnet" {
-#   name                = "vnet_pic"
-#   resource_group_name = "projetfinal"
-# }
-# # Link to existant subnet ================================================================================
-# data "azurerm_subnet" "subnet" {
-#   name                 = "subnet_pic" 
-#   virtual_network_name = "vnet_pic"
-#   resource_group_name  = "projetfinal"
-# }
-
-
 resource "azurerm_resource_group" "rgpil" {
   name     = "rgpil_pil"
   location = var.location
@@ -49,14 +32,6 @@ resource "azurerm_public_ip" "myIp1" {
   allocation_method = "Static"
   domain_name_label = "dnspil"
 }
-
-# resource "azurerm_public_ip" "myIp2" {
-#   name = "var.nameIP2}"
-#   location = "azurerm_resource_group.rgpil.location}"
-#   resource_group_name = "azurerm_resource_group.rgpil.name}"
-#   allocation_method = "Static"
-# }
-
 
 #####################################################
 # Création des règles de sécurité pour la vm bdd #
@@ -193,8 +168,7 @@ resource "azurerm_virtual_machine" "serverTest"{
 
     ssh_keys{
        path =  "/home/stage/.ssh/authorized_keys"
-       key_data = file("/home/vagrant/.ssh/id_rsa.pub")
-      #  key_data = file("/home/stage/.ssh/authorized_keys")
+       key_data = file("/home/stage/.ssh/authorized_keys")
     }
   }
 }
