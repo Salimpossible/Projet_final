@@ -1,0 +1,68 @@
+---
+# tasks file for MONGODB
+- name: create file mongodb
+  file:
+    path: /etc/yum.repos.d/mongodb-org-{{ version }}.repo
+    state: touch
+
+- name: write file conf
+  blockinfile:
+     path: /etc/yum.repos.d/mongodb-org-{{ version }}.repo
+     block: '[mongodb-org-4.2]
+
+     name=MongoDB Repository
+
+     baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.2/x86_64/
+
+     gpgcheck=1
+
+     enabled=1
+
+     gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc'
+
+- name: install mongodb 
+  yum:
+   name: mongodb-org
+   state: present
+<<<<<<< HEAD:roles_ansible/roles/MONGODB/tasks/main.yml
+   
+=======
+  notify:
+  - reload daemon
+  - start  mongo
+
+>>>>>>> f0ccd59eb0de6cb2d5fc855864795935f4b1487d:ansible/roles/MONGODB/tasks/main.yml
+- name: change permission directory /var/lib/mongo
+  file:
+    path: /var/lib/mongo
+    owner: "{{ user_login_mongodb }}"
+
+- name:  change permission directory /var/log/mongodb
+  file:
+     path: /var/log/mongodb
+     owner: "{{ user_login_mongodb }}"
+<<<<<<< HEAD:roles_ansible/roles/MONGODB/tasks/main.yml
+  notify:
+  - reload_daemon
+  - restart_mongo
+=======
+- name: create user admin
+  mongodb_user:
+    login_port: "32236"
+    database: "admin"
+    name: "root"
+    password: "w32jjYdMZr"
+    state: present
+    roles: "userAdminAnyDatabase"
+
+- name: create user
+  mongodb_user:
+    login_user: "root"
+    login_password: "w32jjYdMZr"
+    login_database: "admin"
+    database: "users"
+    name: "user1"
+    password: "user1"
+    state: present
+    roles: readWrite
+>>>>>>> f0ccd59eb0de6cb2d5fc855864795935f4b1487d:ansible/roles/MONGODB/tasks/main.yml

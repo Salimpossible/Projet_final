@@ -1,0 +1,13 @@
+---
+# handlers file for MONGODB
+- name: gestion du service
+  systemd:
+    daemon_reload: yes
+  listen: reload daemon
+
+- name: démarrage du service
+  service:
+    name: mongod
+    state: restarted
+    enabled: yes
+  listen: start mongo
