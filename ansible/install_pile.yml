@@ -8,6 +8,6 @@
 - hosts: db
   become: yes
   roles:
-    - pymongo
+    #- pymongo
     - MONGODB 
 
