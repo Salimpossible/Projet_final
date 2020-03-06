@@ -1,13 +1,19 @@
 ---   
-#- hosts: server
-#  become: yes
-#  roles:
-#    - JAVA12
-    #- CONFIG MONGO SUR SERVER
-
+- hosts: server
+  become: yes
+  roles:
+    - JAVA12
+- hosts: server_test
+  become: yes
+  roles: 
+    - RESTFULWEB1
+- hosts: server_test
+  become: yes
+  roles: 
+    - RESTFULWEB2
 - hosts: db
   become: yes
   roles:
-    #- pymongo
+    - pymongo
     - MONGODB 
 

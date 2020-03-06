@@ -1,77 +1,10 @@
-# ---
-# # # tasks file for MONGODB
-# # # - name: create file mongodb
-# # #   file:
-# # #     path: /etc/yum.repos.d/mongodb-org-{{ version }}.repo
-# # #     state: touch
-
-# # # - name: write file conf
-# # #   blockinfile:
-# # #      path: /etc/yum.repos.d/mongodb-org-{{ version }}.repo
-# # #      block: '[mongodb-org-4.2]
-
-# # #      name=MongoDB Repository
-
-# # #      baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.2/x86_64/
-
-# # #      gpgcheck=1
-
-# # #      enabled=1
-
-# # #      gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc'
-
-# # # - name: install mongodb 
-# # #   yum:
-# # #    name: mongodb-org
-# # #    state: present
-# # #   notify:
-# # #   - reload daemon
-# # #   - start  mongo
-
-# # # - name: change permission directory /var/lib/mongo
-# # #   file:
-# # #     path: /var/lib/mongo
-# # #     owner: "{{ user_login_mongodb }}"
-
-# # # - name:  change permission directory /var/log/mongodb
-# # #   file:
-# # #      path: /var/log/mongodb
-# # #      owner: "{{ user_login_mongodb }}"
-# # #   notify:
-# # #   - reload_daemon
-# # #   - restart_mongo
-  
-# # - name: create user admin
-# #   mongodb_user:
-# #     #login_port: "27017"
-# #     database: "admin"
-# #     name: "admin"
-# #     #name: "root"
-# #     password: "w32jjYdMZr"
-# #     state: present
-# #     roles: "userAdminAnyDatabase"
-
-# # - name: create user
-# #   mongodb_user:
-# #     login_user: "root"
-# #     login_password: "w32jjYdMZr"
-# #     login_database: "admin"
-# #     database: "Customers"
-# #     name: "user1"
-# #     password: "user1"
-# #     state: present
-# #     roles: readWrite
-
-# ============================================
-# Mongo DB
-# ============================================
-
-# on cree un repo pour mongo
-- name: create repo file
+---
+- name: on créé le repo
   file: 
     path: /etc/yum.repos.d/mongodb.repo
     state: touch
-- name: write repo
+
+- name: on édite le repo
   blockinfile:
     path: /etc/yum.repos.d/mongodb.repo
     state: present
@@ -83,20 +16,17 @@
       enabled=1
       gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc
 
-# on installe mongodb
-- name: installation
+- name: installation mongodb
   yum:
     name: mongodb-org
     state: present
 
-# on configure mongodb
-- name: accept remote connection
+- name: 
   template:
-    src: conf.j2
+    src: mongod.conf.j2
     dest: /etc/mongod.conf
 
-# on installe gcc et python
-- name: installation de gcc et python devel
+- name: installation des dépendances
   yum:
     name:
     - gcc
@@ -104,47 +34,39 @@
     - python-setuptools
     state: present
 
-# on installe pymongo    
-- name: install de pymongo
+- name: on installe pymongo
   easy_install:
     name: pymongo
     state: latest
 
-# on demarre mongo
-- name: enable service
-  service: 
-    name: mongod
-    state: restarted
-    enabled: yes
+- notify:
+    -daemon_reload
+    -restart_mongo
 
-# on cree un user dans mongo
-- name: create admin user
+- name: on crée un user admin 
   mongodb_user:
     database: admin
     name: admin
-    password: '12345'
+    password: 'mongo'
     state: present
     roles: dbAdminAnyDatabase
     
-# on cree une base customers
-- name: create utilisateur
+- name: on crée un user
   mongodb_user:
     login_user: admin
-    login_password: '12345'
+    login_password: 'mongo'
     login_database: admin
     database: customers
-    name: utilisateur
-    password: '54321'
+    name: stage
+    password: 'stage'
     state: present
     roles: readWrite
 
-# seeder la db
-- name: créer le fichier customers.json
+- name: on crée le fichier customers.json
   template:
     src: customers.j2
     dest: /home/stage/customers.json
 
-# on ajoute des noms a la base customers
 - name: appliquer mongoimport
   shell: 
     cmd: mongoimport --db=customers --collection=customer --file=customers.json
