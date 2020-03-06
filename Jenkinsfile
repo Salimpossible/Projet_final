@@ -75,6 +75,7 @@ node('slave'){
     // }
     if (env.git_branch == 'master'){
         stage('Deploy JAR on server prod') {
+            sh "echo 'branche de prod'"
             withCredentials([sshUserPrivateKey(credentialsId: '0f9059ce-d30e-4d9a-871e-5f0fd5a80380', keyFileVariable: 'Key', passphraseVariable: '', usernameVariable: 'stage')]) {
                 sh 'cat \$Key > ~/.ssh/id_rsa'
                 sh 'chmod 600 ~/.ssh/id_rsa'
@@ -88,6 +89,7 @@ node('slave'){
     if (env.git_branch == 'devel')
     {
         stage('Deploy JAR on server test') {
+            sh "echo 'branche de test'"
             withCredentials([sshUserPrivateKey(credentialsId: '0f9059ce-d30e-4d9a-871e-5f0fd5a80380', keyFileVariable: 'Key', passphraseVariable: '', usernameVariable: 'stage')]) {
             sh 'cat \$Key > ~/.ssh/id_rsa'
                 sh 'chmod 600 ~/.ssh/id_rsa'
