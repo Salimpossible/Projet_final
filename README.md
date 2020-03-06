@@ -27,7 +27,7 @@ Installée une une ressource group dans un Vnet,elle comprend:
    - Ansible : les rôles ansible pour provisionner la machine cliente et la BDD MongoDB
 
 Description du code pour la livraison de pile complète : contenu dans un fichier Jenkinsfile qui contient un pipeline :
-1- installation de la plateforme d'intégration continue: 
+- Installation de la plateforme d'intégration continue: 
 Créer un fichier secret.auto.tfvars dans le dossier terraform qui aura la forme suivante:
    subscription_id =  id de souscription
    client_id       =  id de client
@@ -38,10 +38,7 @@ Lancement des commandes suivantes:
    terraform init
    terraform plan -out planfile
    terraform apply planfile
-2- Installation des environnements Test et Prod:
-   - Récupération du code terraform
-   - Exécution du code terraform
-   - Récupération du code ansible
+Une fois la plateforme installée, il faut la provisionner avec ansible
    - Provisioning des serveurs et BDD
    - Récupération du code de l’application
    - Lancement des tests maven
