@@ -1,45 +1,45 @@
 ---
 # tasks file for MONGODB
-- name: create file mongodb
-  file:
-    path: /etc/yum.repos.d/mongodb-org-{{ version }}.repo
-    state: touch
+# - name: create file mongodb
+#   file:
+#     path: /etc/yum.repos.d/mongodb-org-{{ version }}.repo
+#     state: touch
 
-- name: write file conf
-  blockinfile:
-     path: /etc/yum.repos.d/mongodb-org-{{ version }}.repo
-     block: '[mongodb-org-4.2]
+# - name: write file conf
+#   blockinfile:
+#      path: /etc/yum.repos.d/mongodb-org-{{ version }}.repo
+#      block: '[mongodb-org-4.2]
 
-     name=MongoDB Repository
+#      name=MongoDB Repository
 
-     baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.2/x86_64/
+#      baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.2/x86_64/
 
-     gpgcheck=1
+#      gpgcheck=1
 
-     enabled=1
+#      enabled=1
 
-     gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc'
+#      gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc'
 
-- name: install mongodb 
-  yum:
-   name: mongodb-org
-   state: present
-  notify:
-  - reload daemon
-  - start  mongo
+# - name: install mongodb 
+#   yum:
+#    name: mongodb-org
+#    state: present
+#   notify:
+#   - reload daemon
+#   - start  mongo
 
-- name: change permission directory /var/lib/mongo
-  file:
-    path: /var/lib/mongo
-    owner: "{{ user_login_mongodb }}"
+# - name: change permission directory /var/lib/mongo
+#   file:
+#     path: /var/lib/mongo
+#     owner: "{{ user_login_mongodb }}"
 
-- name:  change permission directory /var/log/mongodb
-  file:
-     path: /var/log/mongodb
-     owner: "{{ user_login_mongodb }}"
-  notify:
-  - reload_daemon
-  - restart_mongo
+# - name:  change permission directory /var/log/mongodb
+#   file:
+#      path: /var/log/mongodb
+#      owner: "{{ user_login_mongodb }}"
+#   notify:
+#   - reload_daemon
+#   - restart_mongo
   
 - name: create user admin
   mongodb_user:
