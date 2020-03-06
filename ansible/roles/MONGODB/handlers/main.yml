@@ -3,11 +3,11 @@
 - name: gestion du service
   systemd:
     daemon_reload: yes
-  listen: reload daemon
+  listen: reload_daemon
 
 - name: démarrage du service
   service:
     name: mongod
     state: restarted
     enabled: yes
-  listen: start mongo
+  listen: restart_mongo
