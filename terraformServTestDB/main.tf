@@ -258,7 +258,7 @@ resource "azurerm_network_interface_security_group_association" "app_link" {
 
 # create a virtual machine =====================================================================
 resource "azurerm_virtual_machine" "serverTest"{
-  name = "VMTest"
+  name = "servtest"
   location = var.location
   resource_group_name = azurerm_resource_group.rgpil.name
   network_interface_ids = [ azurerm_network_interface.myNIC1.id ]
@@ -277,7 +277,7 @@ resource "azurerm_virtual_machine" "serverTest"{
     version = "latest"
   }
   os_profile{
-    computer_name = "serverTest"
+    computer_name = "servtest"
     admin_username = "stage"
   }
   os_profile_linux_config {
@@ -291,7 +291,7 @@ resource "azurerm_virtual_machine" "serverTest"{
 }
 
 resource "azurerm_virtual_machine" "vmDBtest"{
-  name = "VMDBtest"
+  name = "dbtest"
   location = var.location
   resource_group_name = azurerm_resource_group.rgpil.name
   network_interface_ids = [ azurerm_network_interface.myNIC2.id ]
@@ -310,7 +310,7 @@ resource "azurerm_virtual_machine" "vmDBtest"{
     version = "latest"
   }
   os_profile{
-    computer_name = "vmDBtest"
+    computer_name = "dbtest"
     admin_username = "stage"
   }
   os_profile_linux_config {
@@ -324,7 +324,7 @@ resource "azurerm_virtual_machine" "vmDBtest"{
 }
 # create a virtual machine =====================================================================
 resource "azurerm_virtual_machine" "serverProd"{
-  name = "VMProd"
+  name = "servprod"
   location = var.location
   resource_group_name = azurerm_resource_group.rgpil.name
   network_interface_ids = [ azurerm_network_interface.myNIC3.id ]
@@ -343,7 +343,7 @@ resource "azurerm_virtual_machine" "serverProd"{
     version = "latest"
   }
   os_profile{
-    computer_name = "serverProd"
+    computer_name = "servprod"
     admin_username = "stage"
   }
   os_profile_linux_config {
@@ -357,7 +357,7 @@ resource "azurerm_virtual_machine" "serverProd"{
 }
 
 resource "azurerm_virtual_machine" "vmDBprod"{
-  name = "VMDBprod"
+  name = "dbprod"
   location = var.location
   resource_group_name = azurerm_resource_group.rgpil.name
   network_interface_ids = [ azurerm_network_interface.myNIC4.id ]
@@ -376,7 +376,7 @@ resource "azurerm_virtual_machine" "vmDBprod"{
     version = "latest"
   }
   os_profile{
-    computer_name = "vmDBprod"
+    computer_name = "dbprod"
     admin_username = "stage"
   }
   os_profile_linux_config {
@@ -388,71 +388,3 @@ resource "azurerm_virtual_machine" "vmDBprod"{
     }
   }
 }
-# create a virtual machine =====================================================================
-resource "azurerm_virtual_machine" "serverprod"{
-  name = "VMprod"
-  location = var.location
-  resource_group_name = azurerm_resource_group.rgpil.name
-  network_interface_ids = [ azurerm_network_interface.myNIC1.id ]
-  vm_size = var.vmSize
-
-  storage_os_disk{
-    name ="myDisk1"
-    caching = "ReadWrite"
-    create_option = "FromImage"
-    managed_disk_type = "Standard_LRS"
-  }
-  storage_image_reference{
-    publisher = "OpenLogic"
-    offer = "CentOS"
-    sku = "7.6"
-    version = "latest"
-  }
-  os_profile{
-    computer_name = "serverTest"
-    admin_username = "stage"
-  }
-  os_profile_linux_config {
-    disable_password_authentication = true
-
-    ssh_keys{
-       path =  "/home/stage/.ssh/authorized_keys"
-       key_data = var.pub_key
-    }
-  }
-}
-
-resource "azurerm_virtual_machine" "vmDB"{
-  name = "VMDB"
-  location = var.location
-  resource_group_name = azurerm_resource_group.rgpil.name
-  network_interface_ids = [ azurerm_network_interface.myNIC2.id ]
-  vm_size = var.vmSize
-
-  storage_os_disk{
-    name ="myDisk_2"
-    caching = "ReadWrite"
-    create_option = "FromImage"
-    managed_disk_type = "Standard_LRS"
-  }
-  storage_image_reference{
-    publisher = "OpenLogic"
-    offer = "CentOS"
-    sku = "7.6"
-    version = "latest"
-  }
-  os_profile{
-    computer_name = "vmDB"
-    admin_username = "stage"
-  }
-  os_profile_linux_config {
-    disable_password_authentication = true
-
-    ssh_keys{
-       path =  "/home/stage/.ssh/authorized_keys"
-       key_data = var.pub_key
-    }
-  }
-}
-
-
