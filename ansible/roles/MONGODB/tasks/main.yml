@@ -23,7 +23,7 @@
 
 - name: 
   template:
-    src: mongod.conf.j2
+    src: mongo.conf.j2
     dest: /etc/mongod.conf
 
 - name: installation des dépendances
