@@ -1,9 +1,4 @@
----
-- hosts: localhost
-  become: root
-  roles:
-    - SSH_PILE
-
+---   
 - hosts: server
   become: yes
   roles:
