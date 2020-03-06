@@ -1,6 +1,6 @@
 ---
 - hosts: localhost
-  become: yes
+  become: root
   roles:
     - SSH_PILE
 
