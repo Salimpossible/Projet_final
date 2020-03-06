@@ -1,0 +1,28 @@
+---
+- name: créer le fichier config dans le dossier .ssh
+  file:
+    path: ~/.ssh/config
+    state: touch
+- name:
+  blockinfile:
+    path: ~/.ssh/config
+    state: present
+    block: |
+    Host server_test
+    HostName ???.francecentral.cloudapp.azure.com
+    User stage
+    IdentityFile ~/.ssh/id_rsa
+    Host dbtest
+    HostName 10.0.1.11
+    User stage
+    IdentityFile ~/.ssh/id_rsa
+    ProxyJump server_test
+    Host server_prod
+    HostName ???.francecentral.cloudapp.azure.com
+    User stage
+    IdentityFile ~/.ssh/id_rsa
+    Host dbprod
+    HostName 10.0.1.21
+    User stage
+    IdentityFile ~/.ssh/id_rsa
+    ProxyJump server_prod

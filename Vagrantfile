@@ -81,11 +81,11 @@ Vagrant.configure("2") do |config|
       yum install -y git2u-all
    
     # installation terraform
-      # curl -s -LO https://releases.hashicorp.com/terraform/0.12.21/terraform_0.12.21_linux_amd64.zip
-      # yum install -y unzip
-      # unzip terraform_0.12.21_linux_amd64.zip
-      # mv terraform /usr/bin
-      # rm -f terraform_0.12.21_linux_amd64.zip
+       curl -s -LO https://releases.hashicorp.com/terraform/0.12.21/terraform_0.12.21_linux_amd64.zip
+       yum install -y unzip
+       unzip terraform_0.12.21_linux_amd64.zip
+       mv terraform /usr/bin
+       rm -f terraform_0.12.21_linux_amd64.zip
  
     # installation az cli
       # rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -116,7 +116,7 @@ Vagrant.configure("2") do |config|
       # echo 'export PATH=$PATH:$JAVA_HOME/bin' >> /etc/profile.d/jdk12.sh
 
     # installation de java8
-      yum install -y java-1.8.0-openjdk-devel 
+      #yum install -y java-1.8.0-openjdk-devel 
     
     # installation de maven-3.6.3  
       # curl -s -LO https://www-us.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz

@@ -2,8 +2,7 @@
 - hosts: localhost
   become: yes
   roles:
-    - SSHCONFIG
-    - TERRAFORM
+    - SSH_PIC
     - GIT
 
 - hosts: proxy

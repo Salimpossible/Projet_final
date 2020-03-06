@@ -1,1 +1,0 @@
-{"rsync":{"/vagrant":{"type":"rsync","guestpath":"/vagrant","hostpath":"C:/Users/Adminl/workspace/ProjetFinal","disabled":false,"__vagrantfile":true,"owner":"vagrant","group":"vagrant"}},"virtualbox":{"/vagrant_data":{"create":true,"guestpath":"/vagrant_data","hostpath":"C:/Users/Adminl/workspace/ProjetFinal/data","disabled":false,"__vagrantfile":true}}}
