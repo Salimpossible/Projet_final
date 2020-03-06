@@ -4,18 +4,23 @@
   yum:
     name: epel-release
     state: present
-- name: install setuptool
-  pip:
-    name: setuptools
+
+- name: 
+  yum: 
+    name: 
+    - gcc
+    - python-devel
+    - python-setuptools
+
 - name: install python-pymongo package for Python 2
   yum:
     name: python-pymongo
     state: present
 
-- name: 
-  yum:
-    name: python34-pip
-    state: present
+# - name: 
+#   yum:
+#     name: python34-pip
+#     state: present
 
 - name: 
   pip:
