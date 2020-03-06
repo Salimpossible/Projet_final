@@ -36,5 +36,29 @@ RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers
 RUN mkdir -p /etc/ansible
 RUN echo -e '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts
 
+RUN echo "Host *" >> ~/.ssh/config
+RUN echo "StrictHostKeyChecking no" >> ~/.ssh/config
+RUN echo "UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+RUN echo "IdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
+RUN echo "Host server_test" >> ~/.ssh/config
+RUN echo "Hostname dnsenvtest.francecentral.cloudapp.azure.com" >> ~/.ssh/config
+RUN echo "User stage" >> ~/.ssh/config
+RUN echo "IdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
+RUN echo "Host dbtest" >> ~/.ssh/config
+RUN echo "Hostname 10.0.1.60" >> ~/.ssh/config
+RUN echo "User stage" >> ~/.ssh/config
+RUN echo "IdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
+RUN echo "ProxyJump server-test" >> ~/.ssh/config
+RUN echo "Host server_prod" >> ~/.ssh/config
+RUN echo "Hostname dnsenvprod.francecentral.cloudapp.azure.com" >> ~/.ssh/config
+RUN echo "User stage" >> ~/.ssh/config
+RUN echo "IdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
+RUN echo "Host dbprod" >> ~/.ssh/config
+RUN echo "Hostname 10.0.2.60" >> ~/.ssh/config
+RUN echo "User stage" >> ~/.ssh/config
+RUN echo "ProxyJump server-prod" >> ~/.ssh/config
+RUN echo "IdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
+
+
 VOLUME ["/sys/fs/cgroup"]
 CMD ["/usr/lib/systemd/systemd"]
