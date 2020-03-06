@@ -85,6 +85,7 @@ node('slave'){
                 '''
             }   
         }
+    }
 
     if (env.git_branch == 'devel')
     {
@@ -99,7 +100,5 @@ node('slave'){
                 '''
             }
         }
-    }
-    
     }
 }
