@@ -62,8 +62,9 @@ Une fois connecter à jenkins suivres les étapes suivantes:
 - Aller ensuite dans "identifiants",  "global",  "ajouter des identifiants" dans "type" selectionner "SSH Username with private key" dans "username" , cocher la case "Enter directly" et coller la clé publique générer précédemment (/home/stage/.ssh/id_rsa) et sauvegarder.
 - Répéter la procédure pour créer de nouveaux identifiants,  ans "type" selectionner "secret file" et importer un fichier de type backend.tfvars comme celui créer précédemment.
 - Replacer dans le menu principal de jenkins et créer un nouveau pipeline (nouvel item, pipeline). dans la partie "Pipeline" "Définition" sélectionner "pipeline from SCM" puis "GiT". Dans "Repository URL" entrer "https://github.com/Salimpossible/Projet_final.git" et "sauver".
+- "lancer un build"
 
-     
+
 Auteurs:
      - Salim --> @salimpossible
      - Alexandre --> @aaugrain
