@@ -2,9 +2,9 @@ master ansible_host=master ansible_user="stage"
 slave ansible_host=slave ansible_user="stage"
 proxy ansible_host=proxy ansible_user="stage"
 
-dbtest ansible_host=dbtest  ansible_user=""
+dbtest ansible_host=dbtest  ansible_user="stage"
 server_test ansible_host=servtest  ansible_user="stage"
-dbprod ansible_host=dbprod  ansible_user=""
+dbprod ansible_host=dbprod  ansible_user="stage"
 server_prod ansible_host=servprod  ansible_user="stage"
 
 [db]
