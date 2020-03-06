@@ -142,7 +142,7 @@
 - name: créer le fichier customers.json
   template:
     src: customers.j2
-    dest: /home/jpr/customers.json
+    dest: /home/stage/customers.json
 
 # on ajoute des noms a la base customers
 - name: appliquer mongoimport
