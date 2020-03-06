@@ -8,6 +8,10 @@
     path: ~/.ssh/config
     state: present
     block: |
+      Host *
+        StrictHostKeyChecking no
+        UserKnownHostsFile=/dev/null
+        IdentityFile ~/.ssh/id_rsa
       Host server_test
         HostName dnsenvtest.francecentral.cloudapp.azure.com
         User stage
