@@ -9,20 +9,20 @@
     state: present
     block: |
     Host server_test
-    HostName dnsenvtest.francecentral.cloudapp.azure.com
-    User stage
-    IdentityFile ~/.ssh/id_rsa
+      HostName dnsenvtest.francecentral.cloudapp.azure.com
+      User stage
+      IdentityFile ~/.ssh/id_rsa
     Host dbtest
-    HostName 10.0.1.60
-    User stage
-    IdentityFile ~/.ssh/id_rsa
-    ProxyJump server_test
+      HostName 10.0.1.60
+      User stage
+      IdentityFile ~/.ssh/id_rsa
+      ProxyJump server_test
     Host server_prod
-    HostName dnsenvprod.francecentral.cloudapp.azure.com
-    User stage
-    IdentityFile ~/.ssh/id_rsa
+      HostName dnsenvprod.francecentral.cloudapp.azure.com
+      User stage
+      IdentityFile ~/.ssh/id_rsa
     Host dbprod
-    HostName 10.0.2.60
-    User stage
-    IdentityFile ~/.ssh/id_rsa
-    ProxyJump server_prod
+      HostName 10.0.2.60
+      User stage
+      IdentityFile ~/.ssh/id_rsa
+      ProxyJump server_prod
