@@ -95,7 +95,7 @@ resource "azurerm_virtual_machine" "master_jenkins" {
         disable_password_authentication = true
         ssh_keys {
             path     = "/home/${var.user}/.ssh/authorized_keys"
-            key_data = file("/home/vagrant/.ssh/id_rsa.pub")
+            key_data = var.pub_key
         }
     
     }
