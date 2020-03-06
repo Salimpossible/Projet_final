@@ -70,7 +70,7 @@ node('slave'){
             sh 'chmod 600 ~/.ssh/id_rsa'
             sh 'scp /home/stage/restfulweb-1.0.0-SNAPSHOT.jar stage@dnsenvtest.francecentral.cloudapp.azure.com:/home/stage/'
             sh '''
-            ssh stage@dnsenvtest.francecentral.cloudapp.azure.com 'java -jar '/home/stage/restfulweb-1.0.0-SNAPSHOT.jar -spring.data.mongodb.uri=$MONGO_DB ://$MONGO_ADMIN :$MONGO_PWD@$MONGO_URL :$MONGO_PORT'
+            ssh stage@dnsenvtest.francecentral.cloudapp.azure.com 'java -jar /home/stage/restfulweb-1.0.0-SNAPSHOT.jar -spring.data.mongodb.uri=$MONGO_DB ://$MONGO_ADMIN :$MONGO_PWD@$MONGO_URL :$MONGO_PORT'
             '''
         }
     }
