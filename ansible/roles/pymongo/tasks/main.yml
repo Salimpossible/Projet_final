@@ -11,6 +11,7 @@
     - gcc
     - python-devel
     - python-setuptools
+    - python-pip
 
 - name: install python-pymongo package for Python 2
   yum:
