@@ -1,5 +1,5 @@
 ---
-- hosts: 
+- hosts: localhost
   become: yes
   roles:
     - SSH_PILE
