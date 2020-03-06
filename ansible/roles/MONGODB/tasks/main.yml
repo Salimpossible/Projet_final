@@ -108,7 +108,7 @@
 - name: install de pymongo
   easy_install:
     name: pymongo
-    state: present
+    state: latest
 
 # on demarre mongo
 - name: enable service
