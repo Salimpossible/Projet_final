@@ -1,17 +1,13 @@
----
-- hosts: localhost
+---   
+- hosts: server
   become: yes
   roles:
-    - SSH_PILE
+    - JAVA12
+    #- CONFIG MONGO SUR SERVER
 
 - hosts: db
   become: yes
   roles:
     - pymongo
     - MONGODB 
-    
-- hosts: server
-  become: yes
-  roles:
-    - JAVA12
-    #- CONFIG MONGO SUR SERVER
+
