@@ -1,5 +1,5 @@
 ---
-- hosts: slave
+- hosts: 
   become: yes
   roles:
     - SSH_PILE
