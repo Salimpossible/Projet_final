@@ -11,7 +11,7 @@ variable "location" {}
 
 variable "vmSize" {}
 # variable "key_data" {}
-variable "adress_prefix1" {}
+variable "adress_prefix" {}
 variable "adress_prefix2" {}
 variable "nameNIC1" {}
 variable "nameNIC2" {}
