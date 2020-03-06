@@ -229,7 +229,7 @@ resource "azurerm_network_interface" "myNIC3" {
 # Association du nsg serverprod  au nic server prod #
 #########################################
 resource "azurerm_network_interface_security_group_association" "master2_link" {
-  network_interface_id      = azurerm_network_interface.myNIC1.id
+  network_interface_id      = azurerm_network_interface.myNIC3.id
   network_security_group_id = azurerm_network_security_group.nsgservprod.id
 }
 
