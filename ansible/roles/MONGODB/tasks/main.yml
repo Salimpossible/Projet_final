@@ -45,7 +45,8 @@
   mongodb_user:
     #login_port: "27017"
     database: "admin"
-    name: "root"
+    name: "admin"
+    #name: "root"
     password: "w32jjYdMZr"
     state: present
     roles: "userAdminAnyDatabase"
