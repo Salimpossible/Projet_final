@@ -39,7 +39,7 @@
     name: pymongo
     state: latest
   notify:
-    -daemon_reload
+    -reload_daemon
     -restart_mongo
 
 - name: on crée un user admin 
