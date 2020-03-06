@@ -38,8 +38,7 @@
   easy_install:
     name: pymongo
     state: latest
-
-- notify:
+  notify:
     -daemon_reload
     -restart_mongo
 
