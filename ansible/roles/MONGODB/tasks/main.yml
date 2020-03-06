@@ -24,14 +24,10 @@
   yum:
    name: mongodb-org
    state: present
-<<<<<<< HEAD:roles_ansible/roles/MONGODB/tasks/main.yml
-   
-=======
   notify:
   - reload daemon
   - start  mongo
 
->>>>>>> f0ccd59eb0de6cb2d5fc855864795935f4b1487d:ansible/roles/MONGODB/tasks/main.yml
 - name: change permission directory /var/lib/mongo
   file:
     path: /var/lib/mongo
@@ -41,11 +37,10 @@
   file:
      path: /var/log/mongodb
      owner: "{{ user_login_mongodb }}"
-<<<<<<< HEAD:roles_ansible/roles/MONGODB/tasks/main.yml
   notify:
   - reload_daemon
   - restart_mongo
-=======
+  
 - name: create user admin
   mongodb_user:
     login_port: "32236"
@@ -60,9 +55,9 @@
     login_user: "root"
     login_password: "w32jjYdMZr"
     login_database: "admin"
-    database: "users"
+    database: "Customers"
     name: "user1"
     password: "user1"
     state: present
     roles: readWrite
->>>>>>> f0ccd59eb0de6cb2d5fc855864795935f4b1487d:ansible/roles/MONGODB/tasks/main.yml
+
