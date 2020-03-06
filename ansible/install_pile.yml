@@ -1,8 +1,8 @@
 ---   
-- hosts: server
-  become: yes
-  roles:
-    - JAVA12
+#- hosts: server
+#  become: yes
+#  roles:
+#    - JAVA12
     #- CONFIG MONGO SUR SERVER
 
 - hosts: db
