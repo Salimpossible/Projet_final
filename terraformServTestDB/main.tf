@@ -228,7 +228,7 @@ resource "azurerm_network_interface" "myNIC3" {
 #########################################
 # Association du nsg serverprod  au nic server prod #
 #########################################
-resource "azurerm_network_interface_security_group_association" "master_link" {
+resource "azurerm_network_interface_security_group_association" "master2_link" {
   network_interface_id      = azurerm_network_interface.myNIC1.id
   network_security_group_id = azurerm_network_security_group.nsgservprod.id
 }
@@ -249,7 +249,7 @@ resource "azurerm_network_interface" "myNIC4" {
 #########################################
 # Association du nsg bdd prod  au nic bdd test #
 #########################################
-resource "azurerm_network_interface_security_group_association" "app_link" {
+resource "azurerm_network_interface_security_group_association" "app2_link" {
   network_interface_id      = azurerm_network_interface.myNIC4.id
   network_security_group_id = azurerm_network_security_group.nsgbddtest.id
 }
