@@ -1,97 +1,77 @@
-def terra_file_test = 
-
-node('slave') {
-        
-    def registry = "aaugrain/terra-git"
-    def registryCredential = "dockerhub"
-    def image="${registry}:version-${env.BUILD_ID}"
-    
-    stage('CloningGit'){
-          
-        git url: 'https://github.com/aaugrain/Restful-Webservice.git',
-            branch: 'master'
-    }
-    
-    stage('Build_with_Maven'){
-          
-        sh 'mvn clean package'
-        
-    }
-     stage('Publish test results') {
-        junit 'target/surefire-reports/*.xml'
-    }
-    
-    stage ('Clonegit_Dockerfile'){
-        
-        git url: 'https://github.com/salimpossible/Projet_final.git',
-            branch: 'master'
-    }
-    
-    def Image_test = stage('BuildImage'){
-        
-        docker.build("$image",  '.')
-        
-    }
-    
-    stage ('Push_DockerHub'){
-        
-        docker.withRegistry('',registryCredential){
-            Image_test.push()
-
-//    stage('Binding azure credential to variable') {
-  //      withCredentials([file(credentialsId: '6b72eccc-25ec-4538-bb0b-3b92290b9637', variable: 'secret')])   
-//
- //   }
-//    stage('retrieving code from git') {
- //       git 'https://github.com/Salimpossible/Projet_final.git'
- //   }
-//    stage('Creating the test environment via a terraform container') {
- //       sh ''' 
-  //      cd ${terra_file_test}
-   //     withCredentials
-  //      docker run -it -v $(pwd):/workspace -w /workspace hashicorp/terraform:light apply -var-file=$secret -var-file="variables/main.tfvars"
- //       '''
- //   }
-}
-
-    // stage('Creating the test environment') {
-    //     sh '''
-    //     cd ${terra_file_test} 
-    //     terraform init 
-    //     terraform apply -var-file=${secrets}
-    //     '''
-    // }
-//     stage('Provisionning of the Mongo-DB client') {
-//         sh docker run -it -v $(pwd):/workspace -w /workpace ansible/ansible:centos7  ansible-playbook 
-//     }
-// }
-
 node('slave'){
-    stage('création infra et build de appli'){
-        parallel terra:{
+    stage('création infra'){
+        
             docker.image('aaugrain/terra-git:latest').inside() {
-                sh 'rm -rf *'
+                sh  'ls -l'
+                try {
+                sh 'mv terraformServTestDB/terraform.tfstate* .'
+                }
+                catch (exc){
+                    echo 'pas de tf state'
+                   
+                }
                 git 'https://github.com/Salimpossible/Projet_final.git'
-                sh 'mv terraformServTestDB/* .'
+                try {
+                sh 'mv terraform.tfstate* terraformServTestDB/'
+                }
+                catch (exc){
+                    echo 'pas de tf state'
+                
+                }
                 sh 'ls'
                 withCredentials([file(credentialsId: '45ea5915-31ad-4764-b8e9-0487396d9d1d', variable: 'secret')]) {
-                    sh 'terraform init'
-                    sh 'terraform -v'
-                    sh 'terraform plan -var-file=$secret -var-file=variables/main.tfvars'
-                    sh 'terraform apply -var-file=$secret -var-file=variables/main.tfvars'
+                    //sh 'terraform init'
+                    //sh 'terraform -v'
+                    sh '''
+                    cd terraformServTestDB/
+                    terraform init
+                    terraform plan -var-file=$secret -var-file=variables/main.tfvars
+                    terraform apply -auto-approve -var-file=$secret -var-file=variables/main.tfvars
+                    '''
                 }
+            }
+    }    
             
-            },
-            building:{
+    stage('build'){      
                 git 'https://github.com/aaugrain/Restful-Webservice.git'
+                sh '''
+                pwd
+                ls
+                '''
                 sh "mvn clean package"
                 sh 'pwd'
-            }
+    }
+    
+    stage('check the working space'){
+        sh 'ls'
+    }
+    docker.image('aaugrain/ansible-git:latest').inside('-u root') {
+        stage('recup git'){
+            git 'https://github.com/Salimpossible/Projet_final.git'
         }
         
-    }
-    stage('provisioning of the mongodb host'){
-        docker.image().inside() {
-            sh "ansible-playbook "
+        withCredentials([sshUserPrivateKey(credentialsId: '0f9059ce-d30e-4d9a-871e-5f0fd5a80380', keyFileVariable: 'Key', passphraseVariable: '', usernameVariable: 'stage')]) {   
+            sh 'cat \$Key > ~/.ssh/id_rsa'
+            sh 'chmod 600 ~/.ssh/id_rsa'
+        }
+        stage('exec playbook'){
+            sh "ansible-playbook ansible/install_pile.yml -i ansible/inventory"
         }
     }
+
+    stage('deployment'){
+        //when {
+          //  branch 'master'
+        //}
+        withCredentials([sshUserPrivateKey(credentialsId: '0f9059ce-d30e-4d9a-871e-5f0fd5a80380', keyFileVariable: 'Key', passphraseVariable: '', usernameVariable: 'stage')]) {
+            sh 'cat \$Key > ~/.ssh/id_rsa'
+            sh 'chmod 600 ~/.ssh/id_rsa'
+            sh 'scp target/restfulweb-1.0.0-SNAPSHOT.jar dnsenvtest.francecentral.cloudapp.azure.com:/home/stage/'
+            sh '''
+            ssh stage@server_test
+            java -jar '/home/stage/restfulweb-1.0.0-SNAPSHOT.jar -spring.data.mongodb.uri=$MONGO_DB ://$MONGO_ADMIN :$MONGO_PWD@$MONGO_URL :$MONGO_PORT
+            '''
+        }
+    }
+    
+}

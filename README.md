@@ -26,29 +26,46 @@ Installée une une ressource group dans un Vnet,elle comprend:
    - Maven : Build, package
    - Ansible : les rôles ansible pour provisionner la machine cliente et la BDD MongoDB
 
-Description du code pour la livraison de pile complète : contenu dans un fichier Jenkinsfile qui contient un pipeline :
+Dépendances requises:
+- vagrant (ou une VM avec ansible et terraform installés)
+
+Description des tâches à suivre :
+- Cloner le répertoire GITHUB suivant https://github.com/Salimpossible/Projet_final.git afin de récupérer un l'ensemble des scipts.
+- Une fois le répertoire présent sur votre environment local,via un terminal, utiliser le vagrantfile pour créer une machine virtuelle à l'aide de Vagrant (vagrant up) et connectez-y vous (vagrant ssh)
+- Une fois connecté à la VM, créer une paire de clé SSH grâce à la commande ssh-keygen, et laisser l'ensemble des champs vides.
 - Installation de la plateforme d'intégration continue: 
-Créer un fichier secret.auto.tfvars dans le dossier terraform qui aura la forme suivante:
+Créer un fichier backend.tfvars dans le dossier terraform_pic qui aura la forme suivante :
    subscription_id =  id de souscription
    client_id       =  id de client
    client_secret   =  mot de passe
    tenant_id       =  id de tenant
-   public_key      =  clé SSH publique
-Lancement des commandes suivantes:
+   pub_key      =  clé SSH publique
+
+NB: Il s'agit de la clé publique générée à l'étape précédente et qui se trouve donc dans /home/stage/.ssh/id_rsa.pub
+
+Dans le terminal, se placer dans le dossier terraform_pic et lancer les commandes suivantes:
    terraform init
-   terraform plan -out planfile
-   terraform apply planfile
-Une fois la plateforme installée, il faut la provisionner avec ansible
-   - Provisioning des serveurs et BDD
-   - Récupération du code de l’application
-   - Lancement des tests maven
-   - Livraison de l’image docker sur dockerhub	
-Si la branche est develop, le déploiement sera dans l’environnement Test.
-Si la branche est master, le déploiement sera dans l’environnement Prod
+   terraform plan -var-file="variables.tfvars" -var-file="backend.tfvars"
+   terraform apply -var-file="variables.tfvars" -var-file="backend.tfvars"
+
+
+Une fois la plateforme installée, se placer via un terminal dans le dossier ansible et lancer la commande suivante:
+- ansible-playbook install_pic.yml -i inventory
+
+Sur votre navigateur internet entrer ensuite l'adresse suivante:
+- http://proxypic.francecentral.cloudapp.azure.com
+
+Suivre les instructions afficher pour paramétrer la première connexion à Jenkins.
+
+Une fois connecter à jenkins suivres les étapes suivantes:
+- Aller dans "administrer jenkins" puis "Gestion des plugins" et installer les plugins maven, ansible, docker, git.
+- Aller ensuite dans "identifiants",  "global",  "ajouter des identifiants" dans "type" selectionner "SSH Username with private key" dans "username" , cocher la case "Enter directly" et coller la clé publique générer précédemment (/home/stage/.ssh/id_rsa) et sauvegarder.
+- Répéter la procédure pour créer de nouveaux identifiants,  ans "type" selectionner "secret file" et importer un fichier de type backend.tfvars comme celui créer précédemment.
+- Replacer dans le menu principal de jenkins et créer un nouveau pipeline (nouvel item, pipeline). dans la partie "Pipeline" "Définition" sélectionner "pipeline from SCM" puis "GiT". Dans "Repository URL" entrer "https://github.com/Salimpossible/Projet_final.git" et "sauver".
 
      
 Auteurs:
      - Salim --> @salimpossible
-     - Allexandre --> @aagrain
+     - Alexandre --> @aaugrain
      - Lynda --> @lynda-cheheb
 
