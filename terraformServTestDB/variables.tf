@@ -11,10 +11,13 @@ variable "location" {}
 
 variable "vmSize" {}
 # variable "key_data" {}
-variable "adress_prefix" {}
+variable "adress_prefix1" {}
+variable "adress_prefix2" {}
 variable "nameNIC1" {}
 variable "nameNIC2" {}
+variable "nameNIC3" {}
+variable "nameNIC4" {}
 # variable "nameSubnet" {}
 variable "nameIP1" {}
-# variable "nameIP2" {}
+variable "nameIP2" {}
 # variable "nameNSG" {}
