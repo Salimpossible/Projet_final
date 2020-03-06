@@ -20,7 +20,7 @@ Installée une une ressource group dans un Vnet,elle comprend:
 •	Ansible : différent roles et playbooks ansible pour approvisionner les ressources : GIT, MAVEN, JAVA12, MONGODB,JENKINS, DOCKER,
      PYMONGO, NGINX, TERRAFORM, SSHCONFIG, JAVA8,AZCLI
 •	Terraform : pour la création des ressources (la plateforme) sur Azure Cloud. Cette dernière comprend deux ressources groups. L'un contenant 
-     le Vnet,Subnet, les IPs, les NIC, les NSG qui accueilleront les machines Jenkins, Slave et le serveur Nginx. et l'autre contient 
+     le Vnet,Subnet, les IPs, les NIC, les NSG qui accueilleront les machines Jenkins, Slave et le serveur Nginx et l'autre contient 
      le Vnet, les deux Subnet (un pour environnement Test, un pour l'environnement Prod), les IPs, les NIC, les NSG.
 •	GitHub : Dépôt distant (https://github.com/Salimpossible/Projet_final.git)
 •	DockerHub : Contient les images docker (aaugrain/ansible-git)
