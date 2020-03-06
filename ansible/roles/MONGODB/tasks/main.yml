@@ -43,7 +43,7 @@
   
 - name: create user admin
   mongodb_user:
-    login_port: "32236"
+    login_port: "27017"
     database: "admin"
     name: "root"
     password: "w32jjYdMZr"
