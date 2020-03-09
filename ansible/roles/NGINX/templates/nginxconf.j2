@@ -8,7 +8,12 @@ server {
     location / {
         proxy_pass http://10.0.1.70:8080/;
     }
-
+    location /test {
+        proxy_pass http://dnsenvtest.francecentral.cloudapp.azure.com:8080/;
+    }
+    location /prod {
+        proxy_pass http://dnsenvprod.francecentral.cloudapp.azure.com:8080/;
+    }
     #error_page  404              /404.html;
 
     # redirect server error pages to the static page /50x.html

@@ -59,32 +59,39 @@ node('slave'){
             sh "ansible-playbook ansible/install_pile.yml -i ansible/inventory"
         }
     }
-    if (env.git_branch == 'master'){
-        stage('Deploy JAR on server prod') {
-            sh "echo 'branche de prod'"
-            withCredentials([sshUserPrivateKey(credentialsId: '0f9059ce-d30e-4d9a-871e-5f0fd5a80380', keyFileVariable: 'Key', passphraseVariable: '', usernameVariable: 'stage')]) {
-                sh 'cat \$Key > ~/.ssh/id_rsa'
-                sh 'chmod 600 ~/.ssh/id_rsa'
-                sh 'scp /home/stage/restfulweb-1.0.0-SNAPSHOT.jar stage@dnsenvtest.francecentral.cloudapp.azure.com:/home/stage/'
-                sh '''
-                ssh -f stage@dnsenvtest.francecentral.cloudapp.azure.com 'java -jar /home/stage/restfulweb-1.0.0-SNAPSHOT.jar -spring.data.mongodb.uri=$MONGO_DB ://$MONGO_ADMIN :$MONGO_PWD@$MONGO_URL :$MONGO_PORT'
-                '''
-            }   
-        }
-    }
-
-    if (env.git_branch == 'devel')
-    {
-        stage('Deploy JAR on server test') {
-            sh "echo 'branche de test'"
-            withCredentials([sshUserPrivateKey(credentialsId: '0f9059ce-d30e-4d9a-871e-5f0fd5a80380', keyFileVariable: 'Key', passphraseVariable: '', usernameVariable: 'stage')]) {
+    stage('deploiement sur le serveur test') {
+        withCredentials([sshUserPrivateKey(credentialsId: '0f9059ce-d30e-4d9a-871e-5f0fd5a80380', keyFileVariable: 'Key', passphraseVariable: '', usernameVariable: 'stage')]) {
             sh 'cat \$Key > ~/.ssh/id_rsa'
-                sh 'chmod 600 ~/.ssh/id_rsa'
-                sh 'scp /home/stage/restfulweb-1.0.0-SNAPSHOT.jar stage@dnsenvprod.francecentral.cloudapp.azure.com:/home/stage/'
-                sh '''
-                ssh -f stage@dnsenvprod.francecentral.cloudapp.azure.com 'java -jar /home/stage/restfulweb-1.0.0-SNAPSHOT.jar -spring.data.mongodb.uri=$MONGO_DB ://$MONGO_ADMIN :$MONGO_PWD@$MONGO_URL :$MONGO_PORT'
-                '''
-            }
+            sh 'chmod 600 ~/.ssh/id_rsa'
+            sh 'scp -o StrictHostKeyChecking=no /home/stage/restfulweb-1.0.0-SNAPSHOT.jar stage@dnsenvtest.francecentral.cloudapp.azure.com:/home/stage/'
         }
     }
+    // if (env.git_branch == 'master'){
+    //     stage('Deploy JAR on server prod') {
+    //         sh "echo 'branche de prod'"
+    //         withCredentials([sshUserPrivateKey(credentialsId: '0f9059ce-d30e-4d9a-871e-5f0fd5a80380', keyFileVariable: 'Key', passphraseVariable: '', usernameVariable: 'stage')]) {
+    //             sh 'cat \$Key > ~/.ssh/id_rsa'
+    //             sh 'chmod 600 ~/.ssh/id_rsa'
+    //             sh 'scp /home/stage/restfulweb-1.0.0-SNAPSHOT.jar stage@dnsenvtest.francecentral.cloudapp.azure.com:/home/stage/'
+    //             sh '''
+    //             ssh -f stage@dnsenvtest.francecentral.cloudapp.azure.com 'java -jar /home/stage/restfulweb-1.0.0-SNAPSHOT.jar -spring.data.mongodb.uri=$MONGO_DB ://$MONGO_ADMIN :$MONGO_PWD@$MONGO_URL :$MONGO_PORT'
+    //             '''
+    //         }   
+    //     }
+    // }
+
+    // if (env.git_branch == 'devel')
+    // {
+    //     stage('Deploy JAR on server test') {
+    //         sh "echo 'branche de test'"
+    //         withCredentials([sshUserPrivateKey(credentialsId: '0f9059ce-d30e-4d9a-871e-5f0fd5a80380', keyFileVariable: 'Key', passphraseVariable: '', usernameVariable: 'stage')]) {
+    //         sh 'cat \$Key > ~/.ssh/id_rsa'
+    //             sh 'chmod 600 ~/.ssh/id_rsa'
+    //             sh 'scp /home/stage/restfulweb-1.0.0-SNAPSHOT.jar stage@dnsenvprod.francecentral.cloudapp.azure.com:/home/stage/'
+    //             sh '''
+    //             ssh -f stage@dnsenvprod.francecentral.cloudapp.azure.com 'java -jar /home/stage/restfulweb-1.0.0-SNAPSHOT.jar -spring.data.mongodb.uri=$MONGO_DB ://$MONGO_ADMIN :$MONGO_PWD@$MONGO_URL :$MONGO_PORT'
+    //             '''
+    //         }
+    //     }
+    // }
 }

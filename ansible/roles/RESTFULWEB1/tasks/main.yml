@@ -22,3 +22,9 @@
       [Install]
       WantedBy=multi-user.target
 
+- name: gestion du service
+  systemd:
+    name: restfulweb
+    state: restarted
+    daemon_reload: yes
+    enabled: yes

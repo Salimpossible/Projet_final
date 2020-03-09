@@ -21,4 +21,10 @@
       ExecStart=/opt/jdk-12.0.1/bin/java -jar /home/stage/restfulweb-1.0.0-SNAPSHOT.jar
       [Install]
       WantedBy=multi-user.target
+- name: gestion du service
+  systemd:
+    name: restfulweb
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
 
