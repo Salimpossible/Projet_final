@@ -42,6 +42,13 @@ node('slave'){
                 sh 'pwd'
                 sh 'cp target/restfulweb-1.0.0-SNAPSHOT.jar /home/stage'
     }
+    stage('deploiement sur le serveur test') {
+        withCredentials([sshUserPrivateKey(credentialsId: '0f9059ce-d30e-4d9a-871e-5f0fd5a80380', keyFileVariable: 'Key', passphraseVariable: '', usernameVariable: 'stage')]) {
+            sh 'cat \$Key > ~/.ssh/id_rsa'
+            sh 'chmod 600 ~/.ssh/id_rsa'
+            sh 'scp -o StrictHostKeyChecking=no /home/stage/restfulweb-1.0.0-SNAPSHOT.jar stage@dnsenvtest.francecentral.cloudapp.azure.com:/home/stage/'
+        }
+    }
     
     stage('check the working space'){
         sh 'ls'
@@ -59,13 +66,7 @@ node('slave'){
             sh "ansible-playbook ansible/install_pile.yml -i ansible/inventory"
         }
     }
-    stage('deploiement sur le serveur test') {
-        withCredentials([sshUserPrivateKey(credentialsId: '0f9059ce-d30e-4d9a-871e-5f0fd5a80380', keyFileVariable: 'Key', passphraseVariable: '', usernameVariable: 'stage')]) {
-            sh 'cat \$Key > ~/.ssh/id_rsa'
-            sh 'chmod 600 ~/.ssh/id_rsa'
-            sh 'scp -o StrictHostKeyChecking=no /home/stage/restfulweb-1.0.0-SNAPSHOT.jar stage@dnsenvtest.francecentral.cloudapp.azure.com:/home/stage/'
-        }
-    }
+
     // if (env.git_branch == 'master'){
     //     stage('Deploy JAR on server prod') {
     //         sh "echo 'branche de prod'"
