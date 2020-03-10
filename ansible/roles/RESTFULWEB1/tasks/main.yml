@@ -28,6 +28,6 @@
    
 - name: 
   service:
-   state: started
+   state: restarted
    name: restfulweb
    enabled: yes
