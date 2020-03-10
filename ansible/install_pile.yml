@@ -3,6 +3,13 @@
   become: yes
   roles:
     - JAVA12
+
+- hosts: db
+  become: yes
+  roles:
+    - pymongo
+    - MONGODB 
+    
 - hosts: server_test
   become: yes
   roles: 
@@ -11,9 +18,4 @@
   become: yes
   roles: 
     - RESTFULWEB2
-- hosts: db
-  become: yes
-  roles:
-    - pymongo
-    - MONGODB 
 
