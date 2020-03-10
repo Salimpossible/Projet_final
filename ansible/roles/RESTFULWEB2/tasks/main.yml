@@ -27,7 +27,7 @@
    daemon_reload: yes
    
 - name: 
-  systemd:
+  service:
    state: started
    name: restfulweb
    enabled: yes
