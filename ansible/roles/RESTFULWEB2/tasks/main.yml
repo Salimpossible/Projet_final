@@ -28,7 +28,7 @@
    
 - name: 
   systemd:
-   state: restarted
+   state: started
    name: restfulweb
    enabled: yes
 
