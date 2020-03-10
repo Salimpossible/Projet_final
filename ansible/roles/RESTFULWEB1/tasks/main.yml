@@ -24,7 +24,10 @@
 
 - name: gestion du service
   systemd:
-    name: restfulweb
-    state: restarted
-    daemon_reload: yes
-    enabled: yes
+   daemon_reload: yes
+   
+- name: 
+  systemd:
+   state: restarted
+   name: restfulweb
+   enabled: yes
